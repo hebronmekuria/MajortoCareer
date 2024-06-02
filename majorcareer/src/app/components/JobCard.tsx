@@ -4,25 +4,29 @@ import { StaticImageData } from "next/image";
 import Image from "next/image";
 
 interface JobCardProps {
-  header: string;
-  subtitle: string;
-  code: string
+  jobtitle: string;
+  pay: string;
+  skills: string;
+  desc: string;
+  more: string;
 }
 export function JobCard({
-  header = 'Professor Gemini',
-  subtitle = 'AI Grader that efficiently grades any open-ended assignments, essays, and homework.',
-  code ='github.com'
+  jobtitle = "Software Engineer",
+  pay = "$50/hour",
+  skills = "lenovo, communication skills",
+  desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor enim ad minim veniam, qrcitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+  more = "github.com",
 }: JobCardProps) {
   return (
     <Box
       w="350px"
       h="500px"
       borderWidth="2px"
-      borderColor='#239cc7'
-      overflow='hidden'
+      borderColor="#239cc7"
+      overflow="hidden"
       borderRadius="40"
       shadow="md"
-      position="relative"  // To position the text over the image
+      position="relative" // To position the text over the image
       mt="50px"
       border="gray.500"
       transition="transform 0.2s ease-out, shadow 0.2s ease-out"
@@ -31,43 +35,34 @@ export function JobCard({
         shadow: "2xl",
       }}
     >
-      
-      <VStack mt="200px">
-        <HStack>
-          <VStack ms="20px" align="left" >
-            <Box background='white' zIndex={3} opacity='0.6'>
-            <Text
-              fontWeight="semibold"
-              fontSize="20px"
-              color="black"
-            >
-              {header}
+     
+          <VStack align="left" ms='20px' mt='20px' me='20px'>
+            <Text fontWeight="semibold" fontSize="20px" color="black">
+              {jobtitle}
             </Text>
-            <Text
-              fontSize="20px"
-              fontWeight="semibold"
-              color="black"
-            >
-              {subtitle}
+            <Text fontSize="20px" color="black">
+            <Text fontWeight='semibold'>Pay:</Text> {pay}
             </Text>
-            </Box>
-          </VStack>
-          <VStack>
-            <Button mt='200px'
+            <Text fontSize="20px" color="black">
+            <Text fontWeight='semibold'>Skills:</Text> {skills}
+            </Text>
+            <Text fontSize="20px" color="black">
+              <Text fontWeight='semibold'>Job Description:</Text> {desc}
+            </Text>
+            <Button
               textColor="white"
               as="a"
-              href={code}
+              href={more}
               bg="#239cc7"
               borderRadius="3xl"
               w="94px"
               h="39px"
-              target="_blank" 
+              target="_blank"
             >
-              Code
+              More
             </Button>
           </VStack>
-        </HStack>
-      </VStack>
+      
     </Box>
   );
 }
