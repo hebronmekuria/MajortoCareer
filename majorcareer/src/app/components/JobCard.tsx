@@ -1,15 +1,13 @@
 import React from "react";
 import { Box, Text, Button, VStack, HStack } from "@chakra-ui/react";
-import { StaticImageData } from "next/image";
-import Image from "next/image";
 
 interface JobCardProps {
-  jobtitle: string;
-  pay: string;
-  location: string;
-  skills: string;
-  desc: string;
-  more: string;
+  jobtitle?: string;
+  pay?: string;
+  location?: string;
+  skills?: string;
+  desc?: string;
+  more?: string;
 }
 export function JobCard({
   jobtitle = "Software Engineer",
@@ -42,7 +40,7 @@ export function JobCard({
           {jobtitle}
         </Text>
         <Text fontSize="20px" color="black">
-          <Text fontWeight='semibold'>Pay:</Text> {pay}
+          <Text>Pay:</Text> {pay}
         </Text>
         <Text fontSize="20px" color="black">
           <Text fontWeight='semibold'>Location:</Text> {location}
