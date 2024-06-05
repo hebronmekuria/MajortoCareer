@@ -1,0 +1,3 @@
+To create a new sqlite database:
+
+Go to the directory where you want the database to live and do sqlite3 name.db 
