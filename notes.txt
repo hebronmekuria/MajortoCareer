@@ -1,3 +1,15 @@
 To create a new sqlite database:
 
-Go to the directory where you want the database to live and do sqlite3 name.db 
+Go to the directory where you want the database to live and do sqlite3 name.db
+
+
+When the local has the correct info that the remote doesn't have, but there are merge conflicts, you can:
+git push origin your-local-branch-name --force
+
+Notes on inserting rows from python code:
+To insert rows into a table in an SQLite database, you use the following steps:
+
+First, connect to the SQLite database by calling the sqlite3.connect() function. The function returns a Connection object.
+Second, create a Cursor object by calling the cursor() method of the Connection object.
+Third, execute an INSERT statement to insert data into the target table. If you want to pass arguments to the INSERT statement, 
+use the question mark (?) as the placeholder for each argument.
