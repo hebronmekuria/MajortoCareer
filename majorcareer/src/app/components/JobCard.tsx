@@ -40,7 +40,7 @@ export function JobCard({
           {jobtitle}
         </Text>
         <Text fontSize="20px" color="black">
-          <Text>Pay:</Text> {pay}
+          <Text fontWeight='semibold'>Pay:</Text> {pay}
         </Text>
         <Text fontSize="20px" color="black">
           <Text fontWeight='semibold'>Location:</Text> {location}
