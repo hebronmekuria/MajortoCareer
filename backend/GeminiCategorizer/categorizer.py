@@ -1,7 +1,15 @@
 #api key AIzaSyCB8dgPhkQNXEAUIELu1z-fAcVH2_9tX5c
-API_KEY= "AIzaSyCB8dgPhkQNXEAUIELu1z-fAcVH2_9tX5c"
+
 import google.generativeai as genai
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+api_key = os.getenv('API_KEY')
+
+if api_key is None:
+    raise ValueError("API_KEY env variable not set")
 
 
 genai.configure(api_key=os.environ[API_KEY])
