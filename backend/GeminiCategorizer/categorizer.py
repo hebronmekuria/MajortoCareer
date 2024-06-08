@@ -99,27 +99,69 @@ Excellent attention to detail and ability to work independently and as part of a
 Strong communication skills.
 Knowledge of Everlaw and related certifications are a plus. '''
 
-prompt = f'''For the text, {job_description2}, answer these questions in sequence:
-1. Can someone with a bachelor's degree obtain this degree? If yes, return True. If no, return False.
-2. If so, what undergraduate major would be required? Return the distinct possible majors mentioned within the 'qualifications' section in the text in an array.
-Keep the answer short, no explanation is needed'''
+job_description3 = """About the job
+Contract: 6+ months 
+
+Hybrid: Chicago, IL (3 days on-site) 
+
+
+
+The Change Management Lead is responsible for focusing on the people side of change, including changes to business processes, systems and technology, job roles and organization structures. They will work to drive faster adoption, higher ultimate utilization and greater proficiency of the changes that impact employees in the organization to increase benefit realization, value creation, ROI and the achievement of results and outcomes.
+
+
+
+
+Tasks & Responsibilities:
+
+• Consulting and coaching senior leaders and project team members regarding their roles in change management.
+• Assessing and capturing change impacts, including recurring reviews of change impacts.
+• Identifying the associated stakeholders impacted by the change impacts.
+• Developing and executing a detailed change management plan (including communications, training, and engagement activities) for stakeholders to adopt the identified changes.
+• Hosting, developing, and/or executing change management activities as defined in the change management plan, and as necessary to support adoption of the changes.
+• Identifying, analyzing and preparing risk mitigation tactics to address behavioral change.
+• Supporting the communication efforts (e.g., messaging, contributing to content creation) related to change management.
+• Uses insights from change management assessments and progress of behavioral change during the course of the project as input into the communications.
+• Developing and deploying in readiness assessments (e.g., communication plan has been executed, training has been delivered, appropriate level of competency has been demonstrated).
+• Defining and measuring the success/adoption metrics and monitoring change progress, which may include executing pulse surveys and tracking attendance or viewership metrics.
+• Reporting status up to the program level change management lead and participating in program change level activities.
+• Manage the portfolio and change load to understand changes impacting the business areas from other initiatives.
+
+
+
+
+Job Qualifications:
+
+• Organizational Design
+• Experience with Deposit Banking, preferred
+- Experience with Teller implementations, preferred (FIS D1 Teller is an advantage)
+• Change Management"""
+prompt = f'''For the job description, {job_description1}, answer these questions in sequence:
+1. Does the job description explicitly mention the requirement of a Bachelor's Degree? If yes, return True. If no, return False.
+2. If True, what undergraduate major would be required? Return the distinct possible majors explicitily mentioned within the 'qualifications' section in the description in an array.
+No explanation need, just answers, please.'''
 
 
 response = model.generate_content(prompt)
 
-#response.resolve()
+#response.resolve() # sometimes helps when streaming answer
 
+#prints response
 print(response.text)
 
-print(response.text.split('\n'))
+# First split to separate answers separated by line
+split1 = response.text.split('\n')
 
-IsBachelor, MajorList = response.text.split()[1], response.text.split()[3]
 
-#print("this is literal")
+
+# Second splits to separate answer from numbers
+
+if len(split1) == 3:
+    IsBachelor = ast.literal_eval(split1[0].split(". ")[1])
+    MajorList = ast.literal_eval(split1[1].split(". ")[1])
+else:
+    MajorList = ast.literal_eval("False")
+
+
 
 
 #print(IsBachelor, MajorList)
-'''for chunk in response:
-    print(chunk.text)
-    print("_"* 60)
-'''
