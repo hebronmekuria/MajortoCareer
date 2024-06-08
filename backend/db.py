@@ -1,5 +1,7 @@
+import json
 import sqlite3
 
+#Create the connection to the db, if the db doesn't exist, it will be created and then the connection is created
 def create_database():
     try:
         cntn = sqlite3.connect('jobs.db')
@@ -9,10 +11,11 @@ def create_database():
         if cntn:
             cntn.close()
 
+#Simple SQL query to create the test table
 def create_test_table():
     try:
         connection = sqlite3.connect('jobs.db')
-        query='CREATE TABLE jobstest( Link TEXT PRIMARY KEY, JOBTITLE TEXT, LOCATION TEXT, PAY TEXT, Skills Text, Description TEXT)'
+        query='CREATE TABLE IF NOT EXISTS jobstest( Url TEXT PRIMARY KEY, Job_Title TEXT, Major TEXT, Location TEXT, Pay TEXT, Skills Text, Description TEXT)'
         connection.execute(query)
     except sqlite3.Error as e:
         pass
@@ -20,17 +23,31 @@ def create_test_table():
         if connection:
             connection.close()
 
+#Populate test table using some mock json data in testdata.json
 def populate_test_table():
+    #Start by saving what's inside the json file
+    with open('./backend/testdata.json', 'r') as file:
+        data = json.load(file)
     try:
         connection = sqlite3.connect('jobs.db')
-        connection.execute ("INSERT INTO jobstest VALUES ('linkedin.com','software engineer','New York, NY','198,000 annual','Python, Java, SQL','This job will be remote')")
-        connection.commit()
+        cursor = connection.cursor()
+        for job in data:
+            try:
+                cursor.execute('''INSERT INTO jobstest 
+                                  (URL, Job_Title, Major, Location, Pay, Skills, Description) 
+                                  VALUES (?, ?, ?, ?, ?, ?, ?)''', 
+                               (job['URL'], job['Job Title'], job['College Major'], job['Location'], 
+                                job['Pay'], ', '.join(job['Skills Required']), job['Description']))
+                connection.commit()
+            except sqlite3.IntegrityError as e:
+                print(f"Data already exists for URL: {job['URL']}")
     except sqlite3.Error as e:
         print(e)
     finally:
         if connection:
-            connection.close()    
+            connection.close()
 
+#Query Table based on desired parameters
 def query_test_table():
     try:
         connection = sqlite3.connect('jobs.db')
