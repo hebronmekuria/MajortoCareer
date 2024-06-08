@@ -137,7 +137,6 @@ Job Qualifications:
 
 
 job_descriptions = [job_description1, job_description2, job_description3]
-### Main Code
 
 
 
