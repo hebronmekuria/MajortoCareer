@@ -140,7 +140,7 @@ job_descriptions = [job_description1, job_description2, job_description3]
 
 
 
-### Output Extraction
+### Output Generation and Extraction
 
 def GeminiCategorizer(job_description):
     
