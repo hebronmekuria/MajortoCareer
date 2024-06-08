@@ -3,18 +3,17 @@ import os
 from dotenv import load_dotenv
 import ast #cool module that converts a list in string form to a list
 
+### api security
 load_dotenv()
-
 api_key = os.getenv('API_KEY')
-
 if api_key is None:
     raise ValueError("API_KEY env variable not set")
 
 
 genai.configure(api_key=api_key)
-# The Gemini 1.5 models are versatile and work with both text-only and multimodal prompts
 model = genai.GenerativeModel('gemini-1.5-flash')
 
+### Mock Job Descriptions
 job_description1 = '''Locations: VA - McLean, United States of America, McLean, VirginiaSenior Software Engineer (Python, AWS)cl
 
 Senior Software Engineer, Back End
@@ -135,33 +134,36 @@ Job Qualifications:
 • Experience with Deposit Banking, preferred
 - Experience with Teller implementations, preferred (FIS D1 Teller is an advantage)
 • Change Management"""
-prompt = f'''For the job description, {job_description1}, answer these questions in sequence:
+
+### Main Code
+prompt = f'''For the job description, {job_description3}, answer these questions in sequence:
 1. Does the job description explicitly mention the requirement of a Bachelor's Degree? If yes, return True. If no, return False.
 2. If True, what undergraduate major would be required? Return the distinct possible majors explicitily mentioned within the 'qualifications' section in the description in an array.
 No explanation need, just answers, please.'''
-
-
 response = model.generate_content(prompt)
 
 #response.resolve() # sometimes helps when streaming answer
-
-#prints response
-print(response.text)
-
-# First split to separate answers separated by line
-split1 = response.text.split('\n')
+print(response.text) 
 
 
+### Output Extraction
 
-# Second splits to separate answer from numbers
+def GeminiAnnotator(response):
+    # First split to separate answers separated by line
+    split1 = response.text.split('\n')
 
-if len(split1) == 3:
-    IsBachelor = ast.literal_eval(split1[0].split(". ")[1])
-    MajorList = ast.literal_eval(split1[1].split(". ")[1])
-else:
-    MajorList = ast.literal_eval("False")
+    # Second splits to separate answer from numbers
+
+    if len(split1) == 3:
+        IsBachelor = ast.literal_eval(split1[0].split(". ")[1])
+        MajorList = ast.literal_eval(split1[1].split(". ")[1])
+    else:
+        IsBachelor = ast.literal_eval("False")
+        MajorList = ast.literal_eval('[]')
 
 
+    
+    #print("This is the length of the split", len(split1))
+    #print(IsBachelor, MajorList)
 
-
-#print(IsBachelor, MajorList)
+    return (IsBachelor, MajorList)
