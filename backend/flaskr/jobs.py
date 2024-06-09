@@ -1,7 +1,10 @@
 import json
 import sqlite3
+from flask import Blueprint, jsonify
 
-#Create the connection to the db, if the db doesn't exist, it will be created and then the connection is created
+bp = Blueprint('jobs', __name__)
+
+# Create the connection to the db, if the db doesn't exist, it will be created and then the connection is created
 def create_database():
     try:
         cntn = sqlite3.connect('jobs.db')
@@ -11,7 +14,7 @@ def create_database():
         if cntn:
             cntn.close()
 
-#Simple SQL query to create the test table
+# Simple SQL query to create the test table
 def create_test_table():
     try:
         connection = sqlite3.connect('jobs.db')
@@ -23,10 +26,10 @@ def create_test_table():
         if connection:
             connection.close()
 
-#Populate test table using some mock json data in testdata.json
+# Populate test table using some mock json data in testdata.json
 def populate_test_table():
     #Start by saving what's inside the json file
-    with open('./backend/testdata.json', 'r') as file:
+    with open('/Users/hebronmekuria/MajortoCareer/backend/testdata.json', 'r') as file:
         data = json.load(file)
     try:
         connection = sqlite3.connect('jobs.db')
@@ -47,22 +50,21 @@ def populate_test_table():
         if connection:
             connection.close()
 
-#Query Table based on desired parameters
+create_database()
+create_test_table()
+populate_test_table()
+
+@bp.route('/findjobs', methods=['GET'])
 def query_test_table():
     try:
         connection = sqlite3.connect('jobs.db')
         cursor = connection.execute('SELECT * FROM jobstest')
+        res=[]
         for row in cursor:
-            print(row)
+            res.append(row)
+        return res
     except sqlite3.Error as e:
         print(e)
     finally:
         if connection:
-            connection.close()    
-
-
-
-create_database()
-create_test_table()
-populate_test_table()
-query_test_table()
+            connection.close()   
