@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Box, Text, Button, VStack, HStack } from "@chakra-ui/react";
 
@@ -7,7 +8,7 @@ interface JobCardProps {
   location?: string;
   skills?: string;
   desc?: string;
-  more?: string;
+  url?: string;
 }
 export function JobCard({
   jobtitle = "Software Engineer",
@@ -15,7 +16,7 @@ export function JobCard({
   location = 'New York, NY',
   skills = "lenovo, communication skills",
   desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doim ad minboris nisi ut aliquip ex ea commodo consequat. ",
-  more = "github.com",
+  url = "github.com",
 }: JobCardProps) {
   return (
     <Box
@@ -54,7 +55,7 @@ export function JobCard({
         <Button
           textColor="white"
           as="a"
-          href={more}
+          href={url}
           bg="#239cc7"
           borderRadius="3xl"
           target="_blank"
