@@ -62,7 +62,7 @@ def query_test_table():
         res=[]
         for row in cursor:
             res.append(row)
-        return res
+        return jsonify(res)
     except sqlite3.Error as e:
         print(e)
     finally:
