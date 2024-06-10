@@ -24,7 +24,7 @@ export function JobCard({
       h="500px"
       borderWidth="2px"
       borderColor="#239cc7"
-      overflowY='scroll'
+      overflowY='auto'
       borderRadius="40"
       shadow="md"
       mt="50px"

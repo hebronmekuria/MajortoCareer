@@ -39,8 +39,8 @@ export default function Home() {
       <Box w='100%' h='100%'>
         <Heading m='30px'>Name of App</Heading>
         <DropDown />
-        <Box overflowX="auto" maxWidth="100%" p="4">
-          <HStack spacing='30px' minWidth="1600px" maxWidth="fit-content">
+        <Box w='80%' overflowX='auto'> {/* Add this container */}
+          <HStack spacing='30px' w='max-content'> {/* Updated HStack */}
             {jobs.map((job) => (
               <JobCard
                 key={job.url}
