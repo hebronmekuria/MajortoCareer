@@ -24,10 +24,9 @@ export function JobCard({
       h="500px"
       borderWidth="2px"
       borderColor="#239cc7"
-      overflow="hidden"
+      overflowY='scroll'
       borderRadius="40"
       shadow="md"
-      position="relative" // To position the text over the image
       mt="50px"
       border="gray.500"
       transition="transform 0.2s ease-out, shadow 0.2s ease-out"
