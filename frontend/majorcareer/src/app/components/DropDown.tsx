@@ -1,5 +1,6 @@
 import React from "react";
 import { Select } from "@chakra-ui/react";
+import "../styles.css"; // Import the custom CSS
 
 export function DropDown() {
     const collegeMajors = [

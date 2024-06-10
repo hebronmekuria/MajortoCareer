@@ -1,8 +1,10 @@
 "use client";
+import React from "react";
 import { Box, ChakraProvider, Heading, Text, HStack, VStack } from "@chakra-ui/react";
 import { JobCard } from "./components/JobCard";
 import { DropDown } from "./components/DropDown";
 import { useEffect, useState } from "react";
+import "./styles.css"; // Import the custom CSS
 
 interface Job {
   jobtitle: string;
@@ -42,8 +44,8 @@ export default function Home() {
           <Text width='1000px' overflowWrap='normal' fontSize='20px'>Bacon ipsum dolor amet short ribs brisket venison rump drumstick pig sausage prosciutto chicken spare ribs salami picanha doner. Kevin capicola sausage, buffalo bresaola venison turkey shoulder picanha ham pork tri-tip meatball meatloaf ribeye. Doner spare ribs andouille bacon sausage. Ground round jerky brisket pastrami shank.</Text>
         </VStack>
         <DropDown />
-        <Box w='80%' overflowX='auto'> {/* Add this container */}
-          <HStack spacing='30px' w='max-content'> {/* Updated HStack */}
+        <Box w='80%' overflowX='auto' className='no-scrollbar'> 
+          <HStack spacing='30px' w='max-content' h='auto'> 
             {jobs.map((job) => (
               <JobCard
                 key={job.url}
