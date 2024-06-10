@@ -41,7 +41,7 @@ export default function Home() {
         <DropDown />
         <Box overflowX="auto" maxWidth="100%" p="4">
           <HStack spacing='30px' minWidth="1600px" maxWidth="fit-content">
-            {jobs.slice(0, 4).map((job) => (
+            {jobs.map((job) => (
               <JobCard
                 key={job.url}
                 jobtitle={job.jobtitle}
