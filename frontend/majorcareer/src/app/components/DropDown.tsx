@@ -1,5 +1,6 @@
 import React from "react";
-import { Select } from "@chakra-ui/react"
+import { Select } from "@chakra-ui/react";
+
 export function DropDown() {
     const collegeMajors = [
         'Accounting', 'Actuarial Science', 'Advertising', 'Aerospace Engineering', 'Aeronautical Engineering',
@@ -50,15 +51,20 @@ export function DropDown() {
     ];
     
     return (
-        <Select placeholder='Select Major' width='350px' borderWidth="2px"
-            borderColor="#239cc7" overflow="hidden"
+        <Select
+            placeholder='Select Major'
+            width='350px'
+            borderWidth="2px"
+            borderColor="#239cc7"
+            overflow="hidden"
             border="gray.500"
             borderRadius="20"
             position="relative"
             shadow="md"
             fontSize='20px'
+            textAlign='center' 
         >
-            {collegeMajors.map ((option,index) => (
+            {collegeMajors.map((option, index) => (
                 <option key={index} value={option}>
                     {option}
                 </option>
