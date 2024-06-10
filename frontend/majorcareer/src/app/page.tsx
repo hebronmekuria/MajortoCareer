@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import "./styles.css";
 import Image from "next/image";
 import logo from './static/investigate.png'
+import favicon from './static/favicon.png'
 
 
 interface Job {
@@ -41,7 +42,7 @@ export default function Home() {
 
   return (
     <ChakraProvider>
-      <Box w='100%' h='100vh' display='flex' flexDirection='column' alignItems='center' mt='10px'>
+      <Box w='100%' h='100vh' display='flex' flexDirection='column' alignItems='center'  >
         <Box mt='0px' mb='10px'>
           <Image
             className="mt-20 w-[300px] h-[300px]"
