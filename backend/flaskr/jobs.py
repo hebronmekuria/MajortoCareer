@@ -1,10 +1,11 @@
 import json
 import sqlite3
 from flask import Blueprint, jsonify
+from flask_cors import CORS
 
 bp = Blueprint('jobs', __name__)
+CORS(bp)  # Enable CORS for this blueprint
 
-# Create the connection to the db, if the db doesn't exist, it will be created and then the connection is created
 def create_database():
     try:
         cntn = sqlite3.connect('jobs.db')
@@ -14,11 +15,17 @@ def create_database():
         if cntn:
             cntn.close()
 
-# Simple SQL query to create the test table
 def create_test_table():
     try:
         connection = sqlite3.connect('jobs.db')
-        query='CREATE TABLE IF NOT EXISTS jobstest( Url TEXT PRIMARY KEY, Job_Title TEXT, Major TEXT, Location TEXT, Pay TEXT, Skills Text, Description TEXT)'
+        query = '''CREATE TABLE IF NOT EXISTS jobstest(
+                      Url TEXT PRIMARY KEY, 
+                      Job_Title TEXT, 
+                      Major TEXT, 
+                      Location TEXT, 
+                      Pay TEXT, 
+                      Skills Text, 
+                      Description TEXT)'''
         connection.execute(query)
     except sqlite3.Error as e:
         pass
@@ -26,9 +33,7 @@ def create_test_table():
         if connection:
             connection.close()
 
-# Populate test table using some mock json data in testdata.json
 def populate_test_table():
-    #Start by saving what's inside the json file
     with open('/Users/hebronmekuria/MajortoCareer/backend/testdata.json', 'r') as file:
         data = json.load(file)
     try:
@@ -52,19 +57,27 @@ def populate_test_table():
 
 create_database()
 create_test_table()
-populate_test_table()
 
 @bp.route('/findjobs', methods=['GET'])
 def query_test_table():
+    populate_test_table()
     try:
         connection = sqlite3.connect('jobs.db')
         cursor = connection.execute('SELECT * FROM jobstest')
-        res=[]
+        res = []
         for row in cursor:
-            res.append(row)
+            res.append({
+                'url': row[0],
+                'jobtitle': row[1],
+                'major': row[2],
+                'location': row[3],
+                'pay': row[4],
+                'skills': row[5],
+                'desc': row[6]
+            })
         return jsonify(res)
     except sqlite3.Error as e:
         print(e)
     finally:
         if connection:
-            connection.close()   
+            connection.close()
