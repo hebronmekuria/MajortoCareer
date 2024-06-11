@@ -1,6 +1,6 @@
 import json
 import sqlite3
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_cors import CORS
 
 bp = Blueprint('jobs', __name__)
@@ -24,7 +24,7 @@ def create_test_table():
                       Major TEXT, 
                       Location TEXT, 
                       Pay TEXT, 
-                      Skills Text, 
+                      Skills TEXT, 
                       Description TEXT)'''
         connection.execute(query)
     except sqlite3.Error as e:
@@ -34,7 +34,7 @@ def create_test_table():
             connection.close()
 
 def populate_test_table():
-    with open('/Users/hebronmekuria/MajortoCareer/backend/testdata.json', 'r') as file:
+    with open('/path/to/testdata.json', 'r') as file:  # Adjust the path as necessary
         data = json.load(file)
     try:
         connection = sqlite3.connect('jobs.db')
@@ -58,12 +58,16 @@ def populate_test_table():
 create_database()
 create_test_table()
 
-@bp.route('/findjobs', methods=['GET'])
+@bp.route('/findjobs', methods=['POST'])
 def query_test_table():
+    major = request.headers.get('Major')
+    if not major:
+        return jsonify({"error": "Major header is required"}), 400
+
     populate_test_table()
     try:
         connection = sqlite3.connect('jobs.db')
-        cursor = connection.execute('SELECT * FROM jobstest')
+        cursor = connection.execute('SELECT * FROM jobstest WHERE Major=?', (major,))
         res = []
         for row in cursor:
             res.append({
@@ -78,6 +82,7 @@ def query_test_table():
         return jsonify(res)
     except sqlite3.Error as e:
         print(e)
+        return jsonify({"error": str(e)}), 500
     finally:
         if connection:
             connection.close()
