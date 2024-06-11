@@ -34,7 +34,7 @@ def create_test_table():
             connection.close()
 
 def populate_test_table():
-    with open('/path/to/testdata.json', 'r') as file:  # Adjust the path as necessary
+    with open('/Users/hebronmekuria/MajortoCareer/backend/testdata.json', 'r') as file:  # Adjust the path as necessary
         data = json.load(file)
     try:
         connection = sqlite3.connect('jobs.db')
