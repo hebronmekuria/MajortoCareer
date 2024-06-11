@@ -1,14 +1,11 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, ChakraProvider, Heading, Text, HStack, VStack } from "@chakra-ui/react";
 import { JobCard } from "./components/JobCard";
 import { DropDown } from "./components/DropDown";
-import { useEffect, useState } from "react";
 import "./styles.css";
 import Image from "next/image";
-import logo from './static/investigate.png'
-import favicon from './static/favicon.png'
-
+import logo from './static/investigate.png';
 
 interface Job {
   jobtitle: string;
@@ -21,9 +18,16 @@ interface Job {
 
 export default function Home() {
   const [jobs, setJobs] = useState<Job[]>([]);
+  const [selectedMajor, setSelectedMajor] = useState<string>("");
 
-  useEffect(() => {
-    fetch('http://127.0.0.1:5000/findjobs')
+  const fetchJobs = (major: string) => {
+    fetch('http://127.0.0.1:5000/findjobs', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Major': major,
+      },
+    })
       .then(response => response.json())
       .then(data => {
         const jobsArray: Job[] = data.map((job: any) => ({
@@ -38,11 +42,17 @@ export default function Home() {
         setJobs(jobsArray);
       })
       .catch(error => console.error('Error fetching jobs:', error));
-  }, []);
+  };
+
+  useEffect(() => {
+    if (selectedMajor) {
+      fetchJobs(selectedMajor);
+    }
+  }, [selectedMajor]);
 
   return (
     <ChakraProvider>
-      <Box w='100%' h='100vh' display='flex' flexDirection='column' alignItems='center'  >
+      <Box w='100%' h='100vh' display='flex' flexDirection='column' alignItems='center'>
         <Box mt='0px' mb='10px'>
           <Image
             className="mt-20 w-[300px] h-[300px]"
@@ -52,9 +62,11 @@ export default function Home() {
         </Box>
         <VStack spacing='12px' align='center' mb='20px'>
           <Heading>Name of App</Heading>
-          <Text width='1000px' overflowWrap='normal' fontSize='20px'>Bacon ipsum dolor amet short ribs brisket venison rump drumstick pig sausage prosciutto chicken spare ribs salami picanha doner. Kevin capicola sausage, buffalo bresaola venison turkey shoulder picanha ham pork tri-tip meatball meatloaf ribeye. Doner spare ribs andouille bacon sausage. Ground round jerky brisket pastrami shank.</Text>
+          <Text width='1000px' overflowWrap='normal' fontSize='20px'>
+            Bacon ipsum dolor amet short ribs brisket venison rump drumstick pig sausage prosciutto chicken spare ribs salami picanha doner. Kevin capicola sausage, buffalo bresaola venison turkey shoulder picanha ham pork tri-tip meatball meatloaf ribeye. Doner spare ribs andouille bacon sausage. Ground round jerky brisket pastrami shank.
+          </Text>
         </VStack>
-        <DropDown />
+        <DropDown selectedMajor={selectedMajor} onMajorChange={setSelectedMajor} />
         <Box w='80%' overflowX='auto' className='no-scrollbar'>
           <HStack spacing='30px' w='max-content' h='auto'>
             {jobs.map((job) => (
