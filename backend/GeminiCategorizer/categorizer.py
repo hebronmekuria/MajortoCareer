@@ -146,7 +146,7 @@ def GeminiCategorizer(job_description):
     
     prompt = f'''For the job description, {job_description}, answer these questions in sequence:
 1. Does the job description explicitly mention the requirement of a Bachelor's Degree? If yes, return True. If no, return False.
-2. If True, what undergraduate major would be required? Return the distinct possible majors explicitily mentioned within the 'qualifications' section in the description in an array.
+2. If True, what undergraduate major would be required? Return the distinct possible majors explicitly mentioned in the description in an array.
 No explanation need, just answers, please.'''
     response = model.generate_content(prompt)
 
