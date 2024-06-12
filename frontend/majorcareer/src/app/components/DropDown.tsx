@@ -2,7 +2,12 @@ import React from "react";
 import { Select } from "@chakra-ui/react";
 import "../styles.css"; // Import the custom CSS
 
-export function DropDown() {
+interface DropDownProps {
+    selectedMajor: string;
+    onMajorChange: (major: string) => void;
+  }
+  export function DropDown({ selectedMajor, onMajorChange }: DropDownProps){
+    
     const collegeMajors = [
         'Accounting', 'Actuarial Science', 'Advertising', 'Aerospace Engineering', 'Aeronautical Engineering',
         'African American Studies', 'Agricultural Engineering', 'Agriculture', 'American Sign Language', 'American Studies',
@@ -53,23 +58,25 @@ export function DropDown() {
     
     return (
         <Select
-            placeholder='Select Major'
-            width='350px'
-            borderWidth="2px"
-            borderColor="#239cc7"
-            overflow="hidden"
-            border="gray.500"
-            borderRadius="20"
-            position="relative"
-            shadow="md"
-            fontSize='20px'
-            textAlign='center' 
+          placeholder='Select Major'
+          width='350px'
+          borderWidth="2px"
+          borderColor="#239cc7"
+          overflow="hidden"
+          border="gray.500"
+          borderRadius="20"
+          position="relative"
+          shadow="md"
+          fontSize='20px'
+          textAlign='center'
+          value={selectedMajor}
+          onChange={(e) => onMajorChange(e.target.value)}
         >
-            {collegeMajors.map((option, index) => (
-                <option key={index} value={option}>
-                    {option}
-                </option>
-            ))}
+          {collegeMajors.map((option, index) => (
+            <option key={index} value={option}>
+              {option}
+            </option>
+          ))}
         </Select>
-    );
-}
+      );
+    }

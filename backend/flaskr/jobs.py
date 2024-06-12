@@ -67,7 +67,7 @@ def query_test_table():
     populate_test_table()
     try:
         connection = sqlite3.connect('jobs.db')
-        cursor = connection.execute('SELECT * FROM jobstest WHERE Major=?', (major,))
+        cursor = connection.execute('SELECT * FROM jobstest')
         res = []
         for row in cursor:
             res.append({
