@@ -161,15 +161,20 @@ No explanation need, just answers, please.'''
     if len(split1) == 3:
         IsBachelor = ast.literal_eval(split1[0].split(". ")[1])
         MajorList = ast.literal_eval(split1[1].split(". ")[1])
-    else:
+    else: # don't know if there will ever be an else
         IsBachelor = ast.literal_eval("False")
         MajorList = ast.literal_eval('[]')
     
     #print("This is the length of the split", len(split1))
-    print(IsBachelor, MajorList)
+    #print(IsBachelor, MajorList)
 
     return (IsBachelor, MajorList)
 
 
-for job_description in job_descriptions:
-    GeminiCategorizer(job_description)
+if __name__ == "__main__":
+    for job_description in job_descriptions:
+        major_bool_tuple = GeminiCategorizer(job_description)
+        print(major_bool_tuple)
+       
+        
+
