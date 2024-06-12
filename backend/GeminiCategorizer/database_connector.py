@@ -40,7 +40,7 @@ for boolean, major, description in list_to_add_to_db:
 
 conn.commit()
 
-# to see whats in database
+# to see whats in database 
 cur.execute('SELECT * FROM jobstest')
 rows = cur.fetchall()
 for row in rows:
