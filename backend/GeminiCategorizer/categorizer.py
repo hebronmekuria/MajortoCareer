@@ -146,7 +146,7 @@ def GeminiCategorizer(job_description):
     
     prompt = f'''For the job description, {job_description}, answer these questions in sequence:
 1. Does the job description explicitly mention the requirement of a Bachelor's Degree? If yes, return True. If no, return False.
-2. If True, what undergraduate major would be required? Return the distinct possible majors explicitily mentioned within the 'qualifications' section in the description in an array.
+2. If True, what undergraduate major would be required? Return the distinct possible majors explicitly mentioned in the description in an array.
 No explanation need, just answers, please.'''
     response = model.generate_content(prompt)
 
@@ -161,15 +161,20 @@ No explanation need, just answers, please.'''
     if len(split1) == 3:
         IsBachelor = ast.literal_eval(split1[0].split(". ")[1])
         MajorList = ast.literal_eval(split1[1].split(". ")[1])
-    else:
+    else: # don't know if there will ever be an else
         IsBachelor = ast.literal_eval("False")
         MajorList = ast.literal_eval('[]')
     
     #print("This is the length of the split", len(split1))
-    print(IsBachelor, MajorList)
+    #print(IsBachelor, MajorList)
 
     return (IsBachelor, MajorList)
 
 
-for job_description in job_descriptions:
-    GeminiCategorizer(job_description)
+if __name__ == "__main__":
+    for job_description in job_descriptions:
+        major_bool_tuple = GeminiCategorizer(job_description)
+        print(major_bool_tuple)
+       
+        
+
