@@ -13,3 +13,6 @@ First, connect to the SQLite database by calling the sqlite3.connect() function.
 Second, create a Cursor object by calling the cursor() method of the Connection object.
 Third, execute an INSERT statement to insert data into the target table. If you want to pass arguments to the INSERT statement, 
 use the question mark (?) as the placeholder for each argument.
+
+Running a flask application:  flask --app flaskr run --debug
+Your location should be one step outside of the flaskr file
