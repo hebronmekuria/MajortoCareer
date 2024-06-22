@@ -5,7 +5,7 @@ import json
 
 
 
-db_path = "backend/jobs.db"
+db_path = "backend/trialgemini.db"
 db_path = os.path.normpath(db_path)
 
 
@@ -29,7 +29,7 @@ for job_description in job_descriptions:
         
 print (list_to_add_to_db)
         
-
+"""
 count = 0
 for boolean, major, description in list_to_add_to_db:
     count += 1
@@ -46,4 +46,4 @@ rows = cur.fetchall()
 for row in rows:
     print("this is", row)
     
-conn.close()
+conn.close()"""
