@@ -158,12 +158,16 @@ No explanation needed, just answers, please.'''
     split1 = response.text.split('\n')
 
     # Second splits to separate answer from numbers
-    if len(split1) == 3:
-        IsBachelor = ast.literal_eval(split1[0].split(". ")[1])
-        MajorList = ast.literal_eval(split1[1].split(". ")[1])
-    else: # don't know if there will ever be an else
-        IsBachelor = ast.literal_eval("False")
-        MajorList = ast.literal_eval('[]')
+    try:
+        if len(split1) == 3:
+            IsBachelor = ast.literal_eval(split1[0].split(". ")[1])
+            MajorList = ast.literal_eval(split1[1].split(". ")[1])
+        else: # don't know if there will ever be an else
+            IsBachelor = ast.literal_eval("False")
+            MajorList = ast.literal_eval('[]')
+    except:
+        print("Gemini Output could not be evaluated by ast module")
+        pass
     
     #print("This is the length of the split", len(split1))
     #print(IsBachelor, MajorList)
