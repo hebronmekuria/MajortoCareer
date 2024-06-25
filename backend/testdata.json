@@ -7,7 +7,8 @@
       "Location": "New York, NY",
       "Pay": "$85,000 annual",
       "Skills Required": ["R", "Excel", "SQL"],
-      "Description": "Analyze data and create reports to support business decisions."
+      "Description": "Analyze data and create reports to support business decisions.",
+      "Date": "June 24, 2024"
     },
     {
       "URL": "https://www.example.com/job3",
@@ -16,7 +17,8 @@
       "Location": "Houston, TX",
       "Pay": "$95,000 annual",
       "Skills Required": ["SolidWorks", "AutoCAD", "MATLAB"],
-      "Description": "Design and develop mechanical systems and products."
+      "Description": "Design and develop mechanical systems and products.",
+      "Date": "June 25, 2024"
     },
     {
       "URL": "https://www.example.com/job4",
@@ -25,7 +27,8 @@
       "Location": "Los Angeles, CA",
       "Pay": "$110,000 annual",
       "Skills Required": ["SEO", "Content Marketing", "Google Analytics"],
-      "Description": "Plan and execute marketing campaigns to promote products and services."
+      "Description": "Plan and execute marketing campaigns to promote products and services.",
+      "Date": "June 26, 2024"
     },
     {
       "URL": "https://www.example.com/job5",
@@ -34,7 +37,8 @@
       "Location": "Chicago, IL",
       "Pay": "$90,000 annual",
       "Skills Required": ["AutoCAD", "Civil 3D", "Project Management"],
-      "Description": "Design and oversee construction projects including roads, bridges, and buildings."
+      "Description": "Design and oversee construction projects including roads, bridges, and buildings.",
+      "Date": "June 27, 2024"
     },
     {
       "URL": "https://www.example.com/job6",
@@ -43,7 +47,8 @@
       "Location": "Seattle, WA",
       "Pay": "$70,000 annual",
       "Skills Required": ["Adobe Photoshop", "Illustrator", "InDesign"],
-      "Description": "Create visual concepts to communicate ideas that inspire, inform, and captivate consumers."
+      "Description": "Create visual concepts to communicate ideas that inspire, inform, and captivate consumers.",
+      "Date": "June 28, 2024"
     },
     {
       "URL": "https://www.example.com/job7",
@@ -52,62 +57,17 @@
       "Location": "Boston, MA",
       "Pay": "$80,000 annual",
       "Skills Required": ["Excel", "Financial Modeling", "Valuation"],
-      "Description": "Analyze financial data and provide recommendations for investment decisions."
-    },
-    {
-      "URL": "https://www.example.com/job8",
-      "Job Title": "Human Resources Specialist",
-      "College Major": "Human Resources",
-      "Location": "Atlanta, GA",
-      "Pay": "$75,000 annual",
-      "Skills Required": ["HRIS", "Recruitment", "Employee Relations"],
-      "Description": "Manage recruitment processes and support employee relations and HR policies."
+      "Description": "Analyze financial data and provide recommendations for investment decisions.",
+      "Date": "June 29, 2024"
     },
     {
       "URL": "https://www.example.com/job9",
-      "Job Title": "Web Developer",
-      "College Major": "Information Technology",
-      "Location": "Austin, TX",
-      "Pay": "$105,000 annual",
-      "Skills Required": ["HTML", "CSS", "JavaScript", "React"],
-      "Description": "Develop and maintain websites and web applications."
-    },
-    {
-      "URL": "https://www.example.com/job10",
-      "Job Title": "Environmental Scientist",
-      "College Major": "Environmental Science",
-      "Location": "Denver, CO",
-      "Pay": "$78,000 annual",
-      "Skills Required": ["GIS", "Data Analysis", "Environmental Regulations"],
-      "Description": "Conduct research and analyze data to protect the environment and human health."
-    },
-    {
-        "URL": "https://www.example.com/job11",
-        "Job Title": "Environmental Scientist",
-        "College Major": "Environmental Science",
-        "Location": "Denver, CO",
-        "Pay": "$78,000 annual",
-        "Skills Required": ["GIS", "Data Analysis", "Environmental Regulations"],
-        "Description": "Conduct research and analyze data to protect the environment and human health."
-      },
-      {
-        "URL": "https://www.example.com/job12",
-        "Job Title": "Environmental Scientist",
-        "College Major": "Environmental Science",
-        "Location": "Denver, CO",
-        "Pay": "$78,000 annual",
-        "Skills Required": ["GIS", "Data Analysis", "Environmental Regulations"],
-        "Description": "Conduct research and analyze data to protect the environment and human health."
-      },
-      {
-        "URL": "https://www.example.com/job13",
-        "Job Title": "Environmental Scientist",
-        "College Major": "Environmental Science",
-        "Location": "Denver, CO",
-        "Pay": "$78,000 annual",
-        "Skills Required": ["GIS", "Data Analysis", "Environmental Regulations"],
-        "Description": "Conduct research and analyze data to protect the environment and human health."
-      }
-
+      "Job Title": "Financial Advisor",
+      "College Major": "Finance",
+      "Location": "Boston, MA",
+      "Pay": "$80,000 annual",
+      "Skills Required": ["Excel", "Financial Modeling", "Valuation"],
+      "Description": "Analyze financial data and provide recommendations for investment decisions.",
+      "Date": "March 22, 2024"
+    }
   ]
-  

@@ -25,7 +25,22 @@ def create_test_table():
                       Location TEXT, 
                       Pay TEXT, 
                       Skills TEXT, 
-                      Description TEXT)'''
+                      Description TEXT)
+                      '''
+        
+        connection.execute(query)
+    except sqlite3.Error as e:
+        pass
+    finally:
+        if connection:
+            connection.close()
+
+def alter_table():
+    try:
+        connection = sqlite3.connect('jobs.db')
+        query = ''' ALTER TABLE jobstest 
+        ADD Date TEXT'''
+
         connection.execute(query)
     except sqlite3.Error as e:
         pass
@@ -42,10 +57,10 @@ def populate_test_table():
         for job in data:
             try:
                 cursor.execute('''INSERT INTO jobstest 
-                                  (URL, Job_Title, Major, Location, Pay, Skills, Description) 
-                                  VALUES (?, ?, ?, ?, ?, ?, ?)''', 
+                                  (URL, Job_Title, Major, Location, Pay, Skills, Description, DATE) 
+                                  VALUES (?, ?, ?, ?, ?, ?, ?,?)''', 
                                (job['URL'], job['Job Title'], job['College Major'], job['Location'], 
-                                job['Pay'], ', '.join(job['Skills Required']), job['Description']))
+                                job['Pay'], ', '.join(job['Skills Required']), job['Description'], job['Date']))
                 connection.commit()
             except sqlite3.IntegrityError as e:
                 print(f"Data already exists for URL: {job['URL']}")
@@ -60,6 +75,7 @@ create_test_table()
 
 @bp.route('/findjobs', methods=['POST'])
 def query_test_table():
+    alter_table()
     major = request.headers.get('Major')
     if not major:
         return jsonify({"error": "Major header is required"}), 400
@@ -67,7 +83,7 @@ def query_test_table():
     populate_test_table()
     try:
         connection = sqlite3.connect('jobs.db')
-        cursor = connection.execute('SELECT * FROM jobstest')
+        cursor = connection.execute('SELECT * FROM jobstest WHERE Major = ? ORDER BY Date ASC', (major,))
         res = []
         for row in cursor:
             res.append({
@@ -79,6 +95,7 @@ def query_test_table():
                 'skills': row[5],
                 'desc': row[6]
             })
+        print(res)
         return jsonify(res)
     except sqlite3.Error as e:
         print(e)
