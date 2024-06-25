@@ -48,6 +48,20 @@ def alter_table():
         if connection:
             connection.close()
 
+#this function will be triggered after our incoming data gets refreshed
+def clean_up_table():
+    try:
+        connection = sqlite3.connect('jobs.db')
+        query = ''' DELETE FROM jobstest;'''
+        connection.execute(query)
+        populate_test_table()  #populate with new data
+
+    except sqlite3.Error as e:
+        pass
+    finally:
+        if connection:
+            connection.close()
+
 def populate_test_table():
     with open('/Users/hebronmekuria/MajortoCareer/backend/testdata.json', 'r') as file:  # Adjust the path as necessary
         data = json.load(file)
