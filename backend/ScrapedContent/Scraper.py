@@ -20,42 +20,51 @@ def get_job_description(url):
     else:
         return "No description available"
 
-# Modified scraper function
-def linkedin_scraper(webpage, major, known_titles, job_data):
+def linkedin_scraper(webpage, major, known_links, job_data):
     encoded_major = major.replace(" ", "%20")
-    url = webpage.format(encoded_major, 0)
+    page = 0
+    jobs_found = True
 
-    response = requests.get(url)
-    soup = BeautifulSoup(response.content, 'html.parser')
+    while jobs_found:
+        url = webpage.format(encoded_major, page)
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, 'html.parser')
 
-    jobs = soup.find_all('div', class_='base-card relative w-full hover:no-underline focus:no-underline base-card--link base-search-card base-search-card--link job-search-card', limit=10)
+        jobs = soup.find_all('div', class_='base-card relative w-full hover:no-underline focus:no-underline base-card--link base-search-card base-search-card--link job-search-card', limit=10)
+        if not jobs:
+            jobs_found = False  # Break the loop if no jobs are found
+            continue
 
-    for job in jobs:
-        job_title = job.find('h3', class_='base-search-card__title').text.strip()
-
-        # Check for duplicates
-        if job_title not in known_titles:
-            known_titles.add(job_title)
-
-            job_company = job.find('h4', class_='base-search-card__subtitle').text.strip()
-            job_location = job.find('span', class_='job-search-card__location').text.strip()
+        for job in jobs:
             job_link = job.find('a', class_='base-card__full-link')['href']
 
-            job_description = get_job_description(job_link)
+            # Check for duplicates based on job links
+            if job_link not in known_links:
+                known_links.add(job_link)
 
-            job_data.append({
-                "title": job_title,
-                "company": job_company,
-                "location": job_location,
-                "apply_link": job_link,
-                "description": job_description
-            })
+                job_title = job.find('h3', class_='base-search-card__title').text.strip()
+                job_company = job.find('h4', class_='base-search-card__subtitle').text.strip()
+                job_location = job.find('span', class_='job-search-card__location').text.strip()
+                job_date = job.find('time', class_='job-search-card__listdate')  # Update class as needed
+                job_date = job_date['datetime'].strip() if job_date else 'Date not specified'  # Extracting the datetime attribute
+                job_description = get_job_description(job_link)
+
+                job_data.append({
+                    "title": job_title,
+                    "company": job_company,
+                    "location": job_location,
+                    "date": job_date,
+                    "apply_link": job_link,
+                    "description": job_description
+                })
+
+        page += 10  # Increase the start parameter for the next page (assuming 10 jobs per page)
 
 # Initialize a list to store job data
 job_data = []
 
 # Initialize a set to keep track of unique job titles
-known_titles = set()
+known_links = set()
 
 # List of majors
 majors = [
@@ -108,6 +117,7 @@ majors = [
 
 for major in majors:
     linkedin_scraper('https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={}&start={}', major, known_titles, job_data)
+# linkedin_scraper('https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={}&start={}', "Physics", known_links, job_data)   
 
 print('Scraping completed.')
 
